@@ -1,0 +1,5 @@
+-sudo systemctl start mongodb
+-cd /home/iron/Desktop/projectX/backend
+npm run dev
+-cd /home/iron/Desktop/projectX/frontend
+npm run dev

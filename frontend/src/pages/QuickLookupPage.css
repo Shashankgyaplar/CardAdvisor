@@ -1,0 +1,246 @@
+.quick-lookup {
+    min-height: 100vh;
+    padding: var(--space-8) var(--space-4);
+}
+
+.quick-lookup-container {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.quick-lookup-header {
+    text-align: center;
+    margin-bottom: var(--space-6);
+}
+
+.quick-lookup-header h1 {
+    font-size: 1.5rem;
+    color: var(--text-main);
+    margin-bottom: var(--space-1);
+}
+
+/* Category Grid */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+}
+
+.category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-4);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.category-card:hover {
+    border-color: var(--border-highlight);
+}
+
+.category-card.selected {
+    border-color: var(--accent);
+    background: var(--accent-light);
+}
+
+.category-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-2);
+}
+
+.category-label {
+    font-weight: 500;
+    color: var(--text-main);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-1);
+}
+
+.category-desc {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+}
+
+/* Loading & Placeholder */
+.loading,
+.placeholder {
+    text-align: center;
+    padding: var(--space-10);
+    color: var(--text-muted);
+}
+
+.placeholder-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: var(--space-3);
+}
+
+/* Results Section */
+.results-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-6);
+}
+
+.results-section h2 {
+    font-size: 1.0625rem;
+    color: var(--text-main);
+    margin-bottom: var(--space-4);
+    text-align: center;
+}
+
+/* Best Cards List */
+.best-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.best-card-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.best-card-item:hover {
+    background: var(--bg-main);
+}
+
+.best-card-item.top-pick {
+    background: var(--accent-light);
+    border: 1px solid var(--accent);
+}
+
+.rank-badge {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    flex-shrink: 0;
+}
+
+.best-card-item.top-pick .rank-badge {
+    font-size: 1.125rem;
+}
+
+.card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.card-info h3 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-bank {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.reward-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.reward-rate {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--success);
+}
+
+.reward-type {
+    font-size: 0.625rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.effective-value {
+    font-size: 0.6875rem;
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.annual-fee {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    padding: 3px 6px;
+    border-radius: var(--radius-sm);
+}
+
+/* Tip Box */
+.tip-box {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--yellow-light);
+    border-radius: var(--radius);
+    margin-top: var(--space-4);
+}
+
+.tip-icon {
+    font-size: 1rem;
+}
+
+.tip-box p {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Navigation */
+.quick-lookup-nav {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .best-card-item {
+        flex-wrap: wrap;
+    }
+
+    .reward-info {
+        align-items: flex-start;
+        width: 100%;
+        flex-direction: row;
+        gap: var(--space-3);
+        margin-top: var(--space-2);
+    }
+
+    .annual-fee {
+        margin-left: auto;
+    }
+}

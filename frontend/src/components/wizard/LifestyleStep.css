@@ -1,0 +1,107 @@
+.lifestyle-step {}
+
+.step-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-8);
+    font-size: var(--text-lg);
+}
+
+/* ============ FORM GROUPS ============ */
+.lifestyle-step .form-group {
+    margin-bottom: var(--space-8);
+}
+
+.lifestyle-step .form-group:last-child {
+    margin-bottom: 0;
+}
+
+.lifestyle-step .form-group>label {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+}
+
+/* ============ OPTION CARDS ============ */
+.option-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+}
+
+.option-cards.two-col {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.option-card {
+    background: var(--bg-tertiary);
+    border: 2px solid var(--gray-600);
+    border-radius: var(--radius-xl);
+    padding: var(--space-4);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.option-card:hover {
+    border-color: var(--primary-400);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.option-card.selected {
+    border-color: var(--primary-500);
+    background: rgba(59, 130, 246, 0.15);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), var(--shadow-glow);
+}
+
+.option-icon {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-1);
+}
+
+.option-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: var(--text-base);
+}
+
+.option-desc {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+}
+
+.option-card.selected .option-label {
+    color: var(--primary-300);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 640px) {
+    .option-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .option-cards.two-col {
+        grid-template-columns: 1fr;
+    }
+
+    .option-card {
+        flex-direction: row;
+        text-align: left;
+        gap: var(--space-3);
+        padding: var(--space-3);
+    }
+
+    .option-icon {
+        font-size: var(--text-2xl);
+        margin-bottom: 0;
+    }
+
+    .option-card>div {
+        display: flex;
+        flex-direction: column;
+    }
+}

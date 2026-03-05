@@ -1,0 +1,198 @@
+.net-benefit-breakdown {}
+
+/* ============ SECTIONS ============ */
+.breakdown-section {
+    margin-bottom: var(--space-6);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-3);
+}
+
+.section-icon {
+    font-size: var(--text-lg);
+}
+
+/* ============ BREAKDOWN ITEMS ============ */
+.breakdown-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+}
+
+.item-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+}
+
+.item-icon {
+    font-size: var(--text-base);
+}
+
+.item-value {
+    font-weight: 600;
+    font-feature-settings: "tnum";
+}
+
+.item-value.positive {
+    color: var(--success);
+}
+
+.item-value.negative {
+    color: var(--danger);
+}
+
+/* ============ SECTION TOTAL ============ */
+.section-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3);
+    margin-top: var(--space-2);
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    font-weight: 600;
+}
+
+.section-total span:first-child {
+    color: var(--text-muted);
+}
+
+.total-value {
+    font-size: var(--text-lg);
+}
+
+.total-value.positive {
+    color: var(--success);
+}
+
+.total-value.negative {
+    color: var(--danger);
+}
+
+/* ============ NET RESULT ============ */
+.net-result {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    text-align: center;
+    margin-bottom: var(--space-6);
+}
+
+.net-result.positive {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.net-result.negative {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.net-result-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+}
+
+.net-icon {
+    font-size: var(--text-2xl);
+}
+
+.net-label {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.net-value {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    margin-bottom: var(--space-2);
+}
+
+.net-result.positive .net-value {
+    color: var(--success);
+}
+
+.net-result.negative .net-value {
+    color: var(--danger);
+}
+
+.net-description {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* ============ BENEFIT BAR ============ */
+.benefit-bar {
+    margin-top: var(--space-4);
+}
+
+.bar-track {
+    display: flex;
+    height: 12px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.bar-rewards {
+    background: var(--gradient-accent);
+    transition: width var(--transition-slow);
+}
+
+.bar-fees {
+    background: var(--danger);
+    transition: width var(--transition-slow);
+}
+
+.bar-legend {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-6);
+    margin-top: var(--space-3);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-full);
+}
+
+.legend-item.rewards .legend-dot {
+    background: var(--success);
+}
+
+.legend-item.fees .legend-dot {
+    background: var(--danger);
+}

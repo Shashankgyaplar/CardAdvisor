@@ -1,0 +1,304 @@
+import React from 'react';
+import {
+    Document,
+    Page,
+    Text,
+    View,
+    StyleSheet,
+} from '@react-pdf/renderer';
+
+// PDF Styles
+const styles = StyleSheet.create({
+    page: {
+        padding: 40,
+        fontFamily: 'Helvetica',
+        backgroundColor: '#ffffff',
+    },
+    header: {
+        marginBottom: 30,
+        borderBottomWidth: 2,
+        borderBottomColor: '#4f46e5',
+        paddingBottom: 15,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#0f172a',
+        marginBottom: 5,
+    },
+    subtitle: {
+        fontSize: 12,
+        color: '#64748b',
+    },
+    section: {
+        marginBottom: 20,
+    },
+    sectionTitle: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: '#0f172a',
+        marginBottom: 10,
+        paddingBottom: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e2e8f0',
+    },
+    cardHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        marginBottom: 15,
+        padding: 15,
+        backgroundColor: '#f8fafc',
+        borderRadius: 8,
+    },
+    cardName: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#0f172a',
+    },
+    cardBank: {
+        fontSize: 10,
+        color: '#64748b',
+        marginTop: 3,
+    },
+    netBenefit: {
+        textAlign: 'right',
+    },
+    benefitLabel: {
+        fontSize: 9,
+        color: '#64748b',
+    },
+    benefitAmount: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    positive: {
+        color: '#10b981',
+    },
+    negative: {
+        color: '#ef4444',
+    },
+    breakdownRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 6,
+        borderBottomWidth: 1,
+        borderBottomColor: '#f1f5f9',
+    },
+    breakdownLabel: {
+        fontSize: 11,
+        color: '#64748b',
+    },
+    breakdownValue: {
+        fontSize: 11,
+        color: '#10b981',
+        fontWeight: 'bold',
+    },
+    totalRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 8,
+        marginTop: 5,
+        borderTopWidth: 2,
+        borderTopColor: '#e2e8f0',
+    },
+    totalLabel: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: '#0f172a',
+    },
+    totalValue: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: '#10b981',
+    },
+    feeValue: {
+        fontSize: 11,
+        color: '#ef4444',
+        fontWeight: 'bold',
+    },
+    reasonItem: {
+        fontSize: 10,
+        color: '#64748b',
+        marginBottom: 5,
+        paddingLeft: 10,
+    },
+    warningBox: {
+        padding: 10,
+        backgroundColor: '#fef3c7',
+        borderRadius: 6,
+        marginBottom: 8,
+    },
+    warningText: {
+        fontSize: 10,
+        color: '#854d0e',
+    },
+    infoGrid: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 10,
+    },
+    infoItem: {
+        flex: 1,
+        textAlign: 'center',
+    },
+    infoLabel: {
+        fontSize: 9,
+        color: '#64748b',
+    },
+    infoValue: {
+        fontSize: 11,
+        fontWeight: 'bold',
+        color: '#0f172a',
+        marginTop: 2,
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 30,
+        left: 40,
+        right: 40,
+        textAlign: 'center',
+        fontSize: 9,
+        color: '#94a3b8',
+        borderTopWidth: 1,
+        borderTopColor: '#e2e8f0',
+        paddingTop: 10,
+    },
+    rankBadge: {
+        backgroundColor: '#4f46e5',
+        color: '#ffffff',
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 12,
+        fontSize: 10,
+        fontWeight: 'bold',
+        marginBottom: 8,
+    },
+});
+
+// Format currency in INR
+const formatCurrency = (amount) => {
+    if (amount === undefined || amount === null) return '₹0';
+    return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        maximumFractionDigits: 0,
+    }).format(amount);
+};
+
+// PDF Document Component
+const ReportDocument = ({ recommendation, summary, rank = 1 }) => {
+    const card = recommendation;
+    const isPositive = card.netYearlyBenefit >= 0;
+
+    const breakdownItems = [
+        { key: 'foodRewards', label: 'Food & Dining' },
+        { key: 'fuelRewards', label: 'Fuel' },
+        { key: 'travelRewards', label: 'Travel' },
+        { key: 'onlineRewards', label: 'Online Shopping' },
+        { key: 'offlineRewards', label: 'Retail' },
+        { key: 'loungeValue', label: 'Lounge Access Value' },
+    ].filter(item => card.breakdown?.[item.key] > 0);
+
+    return (
+        <Document>
+            <Page size="A4" style={styles.page}>
+                {/* Header */}
+                <View style={styles.header}>
+                    <Text style={styles.title}>Credit Card Recommendation Report</Text>
+                    <Text style={styles.subtitle}>
+                        Generated by CardAdvisor • Based on ₹{summary?.userTotalMonthlySpend?.toLocaleString('en-IN')}/month spending
+                    </Text>
+                </View>
+
+                {/* Card Header */}
+                <View style={styles.section}>
+                    <Text style={styles.rankBadge}>#{rank} Recommendation</Text>
+                    <View style={styles.cardHeader}>
+                        <View>
+                            <Text style={styles.cardName}>{card.card.name}</Text>
+                            <Text style={styles.cardBank}>{card.card.bank}</Text>
+                        </View>
+                        <View style={styles.netBenefit}>
+                            <Text style={styles.benefitLabel}>Net Yearly Benefit</Text>
+                            <Text style={[styles.benefitAmount, isPositive ? styles.positive : styles.negative]}>
+                                {isPositive ? '+' : ''}{formatCurrency(card.netYearlyBenefit)}
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+
+                {/* Reward Breakdown */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Reward Breakdown</Text>
+                    {breakdownItems.map(item => (
+                        <View key={item.key} style={styles.breakdownRow}>
+                            <Text style={styles.breakdownLabel}>{item.label}</Text>
+                            <Text style={styles.breakdownValue}>+{formatCurrency(card.breakdown[item.key])}</Text>
+                        </View>
+                    ))}
+                    <View style={styles.totalRow}>
+                        <Text style={styles.totalLabel}>Total Rewards</Text>
+                        <Text style={styles.totalValue}>
+                            +{formatCurrency(card.breakdown.totalRewards + (card.breakdown.loungeValue || 0))}
+                        </Text>
+                    </View>
+                    <View style={styles.breakdownRow}>
+                        <Text style={styles.breakdownLabel}>Annual Fee</Text>
+                        <Text style={styles.feeValue}>-{formatCurrency(card.card.annualFee)}</Text>
+                    </View>
+                </View>
+
+                {/* Why This Card */}
+                {card.reasons?.length > 0 && (
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Why This Card</Text>
+                        {card.reasons.map((reason, i) => (
+                            <Text key={i} style={styles.reasonItem}>✓ {reason}</Text>
+                        ))}
+                    </View>
+                )}
+
+                {/* Warnings */}
+                {card.warnings?.length > 0 && (
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Things to Consider</Text>
+                        {card.warnings.map((warning, i) => (
+                            <View key={i} style={styles.warningBox}>
+                                <Text style={styles.warningText}>{warning.message}</Text>
+                            </View>
+                        ))}
+                    </View>
+                )}
+
+                {/* Card Info */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Card Details</Text>
+                    <View style={styles.infoGrid}>
+                        <View style={styles.infoItem}>
+                            <Text style={styles.infoLabel}>Annual Fee</Text>
+                            <Text style={styles.infoValue}>
+                                {card.card.annualFee === 0 ? 'Free' : formatCurrency(card.card.annualFee)}
+                            </Text>
+                        </View>
+                        <View style={styles.infoItem}>
+                            <Text style={styles.infoLabel}>Reward Type</Text>
+                            <Text style={styles.infoValue}>{card.card.rewardType}</Text>
+                        </View>
+                        <View style={styles.infoItem}>
+                            <Text style={styles.infoLabel}>Approval Chance</Text>
+                            <Text style={styles.infoValue}>{card.approvalProbability || 'Unknown'}</Text>
+                        </View>
+                    </View>
+                </View>
+
+                {/* Footer */}
+                <Text style={styles.footer}>
+                    This report is for informational purposes only. Actual rewards may vary based on card terms and conditions.
+                </Text>
+            </Page>
+        </Document>
+    );
+};
+
+export default ReportDocument;

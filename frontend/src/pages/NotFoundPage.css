@@ -1,0 +1,28 @@
+.not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: var(--space-8);
+}
+
+.not-found-content {
+    text-align: center;
+}
+
+.not-found-code {
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--border-highlight);
+    line-height: 1;
+    display: block;
+    margin-bottom: var(--space-4);
+}
+
+.not-found h1 {
+    margin-bottom: var(--space-2);
+}
+
+.not-found p {
+    margin-bottom: var(--space-8);
+}

@@ -1,0 +1,147 @@
+.financial-step {
+    position: relative;
+}
+
+.optional-badge {
+    position: absolute;
+    top: calc(-1 * var(--space-4));
+    right: 0;
+}
+
+.step-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-8);
+    font-size: var(--text-lg);
+}
+
+.privacy-note {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-top: var(--space-2);
+}
+
+/* ============ FORM GROUPS ============ */
+.financial-step .form-group {
+    margin-bottom: var(--space-8);
+}
+
+.financial-step .form-group>label {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-3);
+}
+
+.financial-step .hint {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-top: var(--space-2);
+}
+
+.financial-step .hint.mb-3 {
+    margin-bottom: var(--space-4);
+}
+
+/* Income input */
+.financial-step .input-group input {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    padding: var(--space-4);
+    padding-left: var(--space-10);
+}
+
+.financial-step .input-group .prefix {
+    font-size: var(--text-lg);
+    font-weight: 600;
+}
+
+/* ============ CREDIT SCORE OPTIONS ============ */
+.score-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.score-option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    background: var(--bg-tertiary);
+    border: 2px solid var(--gray-600);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.score-option:hover {
+    border-color: var(--gray-500);
+}
+
+.score-option.selected {
+    border-color: var(--score-color, var(--primary-500));
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.score-icon {
+    font-size: var(--text-2xl);
+    width: 40px;
+    text-align: center;
+}
+
+.score-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.score-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.score-range {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.score-check {
+    width: 28px;
+    height: 28px;
+    background: var(--score-color, var(--primary-500));
+    color: white;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-sm);
+    font-weight: 700;
+}
+
+/* ============ SKIP NOTICE ============ */
+.skip-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-top: var(--space-6);
+}
+
+.skip-icon {
+    font-size: var(--text-xl);
+    flex-shrink: 0;
+}
+
+.skip-notice p {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.skip-notice strong {
+    color: var(--text-primary);
+}

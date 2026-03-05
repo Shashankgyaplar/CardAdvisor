@@ -1,0 +1,153 @@
+.existing-cards-step {
+    position: relative;
+}
+
+.optional-badge {
+    position: absolute;
+    top: calc(-1 * var(--space-4));
+    right: 0;
+}
+
+.step-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+    font-size: var(--text-lg);
+}
+
+.selected-count {
+    margin-bottom: var(--space-4);
+}
+
+/* ============ BANKS LIST ============ */
+.banks-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: var(--space-2);
+}
+
+.bank-group {}
+
+.bank-name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+/* ============ CARD ITEM ============ */
+.card-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--gray-600);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-4);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.card-item:hover {
+    border-color: var(--gray-500);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.card-item.selected {
+    border-color: var(--accent-500);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.card-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.card-fee {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+}
+
+.card-checkbox {}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--gray-500);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.checkbox.checked {
+    background: var(--accent-500);
+    border-color: var(--accent-500);
+    color: white;
+    font-weight: 700;
+    font-size: var(--text-sm);
+}
+
+/* ============ LOADING ============ */
+.loading-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-12);
+    color: var(--text-muted);
+}
+
+/* ============ BENEFIT NOTICE ============ */
+.benefit-notice {
+    display: flex;
+    gap: var(--space-3);
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-top: var(--space-6);
+}
+
+.benefit-icon {
+    font-size: var(--text-xl);
+    flex-shrink: 0;
+}
+
+.benefit-notice strong {
+    display: block;
+    color: var(--text-primary);
+    margin-bottom: var(--space-1);
+}
+
+.benefit-notice p {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 640px) {
+    .banks-list {
+        max-height: 300px;
+    }
+}

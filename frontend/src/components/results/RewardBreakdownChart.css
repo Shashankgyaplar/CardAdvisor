@@ -1,0 +1,119 @@
+.reward-chart {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-5);
+    margin-top: var(--space-4);
+}
+
+.chart-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.chart-container {
+    margin-bottom: var(--space-3);
+}
+
+.chart-empty {
+    text-align: center;
+    padding: var(--space-6);
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+}
+
+/* Custom Tooltip */
+.chart-tooltip {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-3);
+    box-shadow: var(--shadow-md);
+}
+
+.tooltip-label {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-1);
+}
+
+.tooltip-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--success);
+}
+
+.tooltip-percent {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    margin-top: var(--space-1);
+}
+
+/* Legend */
+.chart-legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.8125rem;
+}
+
+.legend-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.legend-label {
+    color: var(--text-secondary);
+    flex: 1;
+}
+
+.legend-value {
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+/* Total */
+.chart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border);
+    font-size: 0.875rem;
+}
+
+.chart-total span:first-child {
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.chart-total .total-value {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--success);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .reward-chart {
+        padding: var(--space-4);
+    }
+
+    .chart-legend {
+        grid-template-columns: 1fr;
+    }
+}
