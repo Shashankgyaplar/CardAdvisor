@@ -94,13 +94,20 @@ const RewardBreakdownChart = ({ breakdown, type = 'pie' }) => {
                                 paddingAngle={2}
                                 minAngle={12}
                                 dataKey="value"
-                                label={({ cx, cy, x, y, payload }) => {
+                                label={({ cx, cy, midAngle, outerRadius, payload }) => {
                                     const slicePercent = payload.percent || 0;
+
+                                    // Calculate exact coordinates outside the pie
+                                    const RADIAN = Math.PI / 180;
+                                    const radius = outerRadius * 1.4; // Push labels out slightly further
+                                    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                                    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
                                     const textAnchor = x > cx ? 'start' : 'end';
 
                                     return (
                                         <text x={x} y={y} dominantBaseline="central" textAnchor={textAnchor}>
-                                            <tspan x={x} dy="-0.4em" fontSize="11" fill="var(--text-secondary)">
+                                            <tspan x={x} dy="-0.6em" fontSize="11" fill="var(--text-secondary)">
                                                 {payload.shortName}
                                             </tspan>
                                             <tspan x={x} dy="1.4em" fontSize="12" fill="var(--text-main)" fontWeight="600">
