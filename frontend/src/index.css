@@ -1,60 +1,60 @@
 /*
  * Smart Credit Card Advisor - India
- * Minimalist Design System
+ * Warm, Human-Crafted Design System
  */
 
-/* Import Google Fonts — Inter for clean, modern feel */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Import Google Fonts — DM Sans for friendly, approachable feel */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
 /* ============ CSS VARIABLES ============ */
 :root {
   --white: #ffffff;
-  --black: #111827;
+  --black: #1a1a1a;
 
-  /* Accent — single indigo */
-  --accent: #4f46e5;
-  --accent-hover: #4338ca;
-  --accent-light: #eef2ff;
-  --accent-muted: rgba(79, 70, 229, 0.08);
+  /* Accent — warm teal */
+  --accent: #0d9488;
+  --accent-hover: #0f766e;
+  --accent-light: #f0fdfa;
+  --accent-muted: rgba(13, 148, 136, 0.08);
 
-  /* Backgrounds */
-  --bg-main: #fafafa;
+  /* Backgrounds — warm cream tones */
+  --bg-main: #faf9f7;
   --bg-card: #ffffff;
-  --bg-elevated: #f3f4f6;
+  --bg-elevated: #f5f3f0;
   --bg: var(--bg-main);
-  --bg-tertiary: #f3f4f6;
+  --bg-tertiary: #f5f3f0;
 
-  /* Text */
-  --text-main: #111827;
-  --text-secondary: #6b7280;
-  --text-muted: #9ca3af;
+  /* Text — warm grays */
+  --text-main: #1a1a1a;
+  --text-secondary: #5c5c5c;
+  --text-muted: #8a8a8a;
   --text: var(--text-main);
   --text-primary: var(--text-main);
 
-  /* Borders & Shadows */
-  --border: #e5e7eb;
-  --border-highlight: #d1d5db;
+  /* Borders & Shadows — warmer tones */
+  --border: #e8e5e0;
+  --border-highlight: #d4d0c8;
   --border-hover: var(--border-highlight);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.06);
 
   /* Functional Colors */
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --green: #059669;
-  --red: #dc2626;
-  --yellow: #d97706;
-  --blue: #2563eb;
-  --blue-light: #eff6ff;
-  --yellow-light: #fefce8;
-  --red-light: #fef2f2;
-  --success-light: rgba(5, 150, 105, 0.1);
+  --success: #2e7d32;
+  --success-bg: #f1f8e9;
+  --warning: #e65100;
+  --warning-bg: #fff3e0;
+  --danger: #c62828;
+  --danger-bg: #fce4ec;
+  --green: #2e7d32;
+  --red: #c62828;
+  --yellow: #e65100;
+  --blue: #1565c0;
+  --blue-light: #e3f2fd;
+  --yellow-light: #fff8e1;
+  --red-light: #fce4ec;
+  --success-light: rgba(46, 125, 50, 0.1);
 
   /* Spacing */
   --space-1: 0.25rem;
@@ -71,8 +71,8 @@
   --space-24: 6rem;
 
   /* Font */
-  --font-heading: 'Inter', -apple-system, sans-serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-heading: 'DM Sans', -apple-system, sans-serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
 
   /* Radius */
   --radius-sm: 6px;
@@ -99,35 +99,35 @@
   --primary-50: var(--accent-light);
   --primary-500: var(--accent);
   --primary-600: var(--accent);
-  --accent-400: #34d399;
-  --accent-800: #065f46;
-  --primary-400: #818cf8;
+  --accent-400: #4db6ac;
+  --accent-800: #004d40;
+  --primary-400: #4db6ac;
   --shadow-glow: none;
   --shadow-primary: none;
 }
 
 /* ============ DARK THEME ============ */
 [data-theme="dark"] {
-  --white: #111827;
-  --black: #f9fafb;
+  --white: #1a1a1a;
+  --black: #f5f2ed;
 
-  --bg-main: #0f1117;
-  --bg-card: #1a1d27;
-  --bg-elevated: #252833;
+  --bg-main: #141210;
+  --bg-card: #1e1c19;
+  --bg-elevated: #292622;
   --bg: var(--bg-main);
-  --bg-tertiary: #1a1d27;
+  --bg-tertiary: #1e1c19;
 
-  --text-main: #f3f4f6;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
+  --text-main: #f5f2ed;
+  --text-secondary: #a8a29e;
+  --text-muted: #6e6a65;
   --text: var(--text-main);
   --text-primary: var(--text-main);
 
-  --accent-light: rgba(79, 70, 229, 0.15);
-  --accent-muted: rgba(79, 70, 229, 0.12);
+  --accent-light: rgba(13, 148, 136, 0.15);
+  --accent-muted: rgba(13, 148, 136, 0.12);
 
-  --border: #2a2d38;
-  --border-highlight: #3b3f4e;
+  --border: #302d28;
+  --border-highlight: #433f38;
   --border-hover: var(--border-highlight);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -136,13 +136,13 @@
   --shadow-primary: none;
   --shadow-glow: none;
 
-  --success-bg: rgba(5, 150, 105, 0.12);
-  --warning-bg: rgba(217, 119, 6, 0.12);
-  --danger-bg: rgba(220, 38, 38, 0.12);
-  --success-light: rgba(5, 150, 105, 0.15);
-  --blue-light: rgba(37, 99, 235, 0.12);
-  --yellow-light: rgba(217, 119, 6, 0.12);
-  --red-light: rgba(220, 38, 38, 0.12);
+  --success-bg: rgba(46, 125, 50, 0.12);
+  --warning-bg: rgba(230, 81, 0, 0.12);
+  --danger-bg: rgba(198, 40, 40, 0.12);
+  --success-light: rgba(46, 125, 50, 0.15);
+  --blue-light: rgba(21, 101, 192, 0.12);
+  --yellow-light: rgba(230, 81, 0, 0.12);
+  --red-light: rgba(198, 40, 40, 0.12);
   --primary-50: var(--accent-light);
 }
 
