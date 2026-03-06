@@ -89,36 +89,27 @@ const RewardBreakdownChart = ({ breakdown, type = 'pie' }) => {
                                 data={chartData}
                                 cx="50%"
                                 cy="50%"
-                                innerRadius={50}
-                                outerRadius={80}
+                                innerRadius={45}
+                                outerRadius={70}
                                 paddingAngle={2}
+                                minAngle={12}
                                 dataKey="value"
-                                label={({ cx, cy, midAngle, outerRadius, payload }) => {
-                                    // Use the pre-calculated percentage from the payload
+                                label={({ cx, cy, x, y, payload }) => {
                                     const slicePercent = payload.percent || 0;
+                                    const textAnchor = x > cx ? 'start' : 'end';
 
-                                    // Hide labels for slices less than 5% to prevent overlap
-                                    if (slicePercent < 5) return null;
-
-                                    const RADIAN = Math.PI / 180;
-                                    const radius = outerRadius * 1.15;
-                                    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                                    const y = cy + radius * Math.sin(-midAngle * RADIAN);
                                     return (
-                                        <text
-                                            x={x}
-                                            y={y}
-                                            fill="var(--text-secondary)"
-                                            textAnchor={x > cx ? 'start' : 'end'}
-                                            dominantBaseline="central"
-                                            fontSize="12"
-                                            fontWeight="500"
-                                        >
-                                            {`${payload.shortName} ${slicePercent}%`}
+                                        <text x={x} y={y} dominantBaseline="central" textAnchor={textAnchor}>
+                                            <tspan x={x} dy="-0.4em" fontSize="11" fill="var(--text-secondary)">
+                                                {payload.shortName}
+                                            </tspan>
+                                            <tspan x={x} dy="1.4em" fontSize="12" fill="var(--text-main)" fontWeight="600">
+                                                {slicePercent}%
+                                            </tspan>
                                         </text>
                                     );
                                 }}
-                                labelLine={false}
+                                labelLine={{ stroke: 'var(--border)', strokeWidth: 1 }}
                             >
                                 {chartData.map((entry, index) => (
                                     <Cell
