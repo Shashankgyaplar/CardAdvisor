@@ -93,7 +93,25 @@ const RewardBreakdownChart = ({ breakdown, type = 'pie' }) => {
                                 outerRadius={100}
                                 paddingAngle={2}
                                 dataKey="value"
-                                label={({ shortName, percent }) => `${shortName}: ${percent}%`}
+                                label={({ cx, cy, midAngle, outerRadius, percent, payload }) => {
+                                    const RADIAN = Math.PI / 180;
+                                    const radius = outerRadius * 1.15;
+                                    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                                    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                                    return (
+                                        <text
+                                            x={x}
+                                            y={y}
+                                            fill="var(--text-secondary)"
+                                            textAnchor={x > cx ? 'start' : 'end'}
+                                            dominantBaseline="central"
+                                            fontSize="12"
+                                            fontWeight="500"
+                                        >
+                                            {`${payload.shortName} ${(percent * 100).toFixed(0)}%`}
+                                        </text>
+                                    );
+                                }}
                                 labelLine={false}
                             >
                                 {chartData.map((entry, index) => (
