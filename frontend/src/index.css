@@ -3,7 +3,7 @@
  * Dark Fintech Dashboard Theme
  */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* ============ CSS VARIABLES ============ */
 :root {
@@ -73,8 +73,8 @@
   --space-24: 6rem;
 
   /* Font */
-  --font-heading: 'DM Sans', -apple-system, sans-serif;
-  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-heading: 'Inter', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
 
   /* Radius */
   --radius-sm: 6px;
