@@ -22,9 +22,16 @@ const app = express();
 // ============ MIDDLEWARE ============
 
 // Enable CORS for frontend
-const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
-    .split(',')
-    .map(url => url.trim());
+const deployedFrontends = [
+    'https://card-advisor-snowy.vercel.app',
+];
+
+const allowedOrigins = [
+    ...deployedFrontends,
+    ...(process.env.FRONTEND_URL || 'http://localhost:5173')
+        .split(',')
+        .map(url => url.trim()),
+];
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -36,7 +43,7 @@ app.use(cors({
             return callback(null, true);
         }
 
-        // Allow configured frontend URL(s)
+        // Allow configured + deployed frontend URL(s)
         if (allowedOrigins.includes(origin)) {
             return callback(null, true);
         }
