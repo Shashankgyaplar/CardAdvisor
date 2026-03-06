@@ -89,8 +89,8 @@ const RewardBreakdownChart = ({ breakdown, type = 'pie' }) => {
                                 data={chartData}
                                 cx="50%"
                                 cy="50%"
-                                innerRadius={60}
-                                outerRadius={100}
+                                innerRadius={50}
+                                outerRadius={80}
                                 paddingAngle={2}
                                 dataKey="value"
                                 label={({ cx, cy, midAngle, outerRadius, payload }) => {
