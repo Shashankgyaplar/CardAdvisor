@@ -94,6 +94,9 @@ const RewardBreakdownChart = ({ breakdown, type = 'pie' }) => {
                                 paddingAngle={2}
                                 dataKey="value"
                                 label={({ cx, cy, midAngle, outerRadius, percent, payload }) => {
+                                    // Hide labels for slices less than 5% to prevent overlap
+                                    if (percent < 0.05) return null;
+
                                     const RADIAN = Math.PI / 180;
                                     const radius = outerRadius * 1.15;
                                     const x = cx + radius * Math.cos(-midAngle * RADIAN);
