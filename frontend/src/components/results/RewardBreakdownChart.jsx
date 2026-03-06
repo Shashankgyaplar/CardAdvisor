@@ -93,9 +93,12 @@ const RewardBreakdownChart = ({ breakdown, type = 'pie' }) => {
                                 outerRadius={100}
                                 paddingAngle={2}
                                 dataKey="value"
-                                label={({ cx, cy, midAngle, outerRadius, percent, payload }) => {
+                                label={({ cx, cy, midAngle, outerRadius, payload }) => {
+                                    // Use the pre-calculated percentage from the payload
+                                    const slicePercent = payload.percent || 0;
+
                                     // Hide labels for slices less than 5% to prevent overlap
-                                    if (percent < 0.05) return null;
+                                    if (slicePercent < 5) return null;
 
                                     const RADIAN = Math.PI / 180;
                                     const radius = outerRadius * 1.15;
@@ -111,7 +114,7 @@ const RewardBreakdownChart = ({ breakdown, type = 'pie' }) => {
                                             fontSize="12"
                                             fontWeight="500"
                                         >
-                                            {`${payload.shortName} ${(percent * 100).toFixed(0)}%`}
+                                            {`${payload.shortName} ${slicePercent}%`}
                                         </text>
                                     );
                                 }}
