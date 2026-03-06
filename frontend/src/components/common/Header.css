@@ -2,9 +2,11 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--bg-card);
+    background: rgba(30, 41, 59, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    transition: background-color 0.2s ease;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
 }
 
 .header-inner {
@@ -30,6 +32,7 @@
 .logo-icon {
     font-size: 1.25rem;
     color: var(--accent);
+    filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.4));
 }
 
 .nav {
@@ -46,9 +49,12 @@
     text-decoration: none;
 }
 
-.nav-link:hover,
-.nav-link.active {
+.nav-link:hover {
     color: var(--text-main);
+}
+
+.nav-link.active {
+    color: var(--accent);
 }
 
 @media (max-width: 640px) {

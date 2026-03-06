@@ -38,15 +38,19 @@
     cursor: pointer;
     transition: var(--transition);
     text-align: center;
+    box-shadow: var(--shadow-sm);
 }
 
 .category-card:hover {
     border-color: var(--border-highlight);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .category-card.selected {
     border-color: var(--accent);
     background: var(--accent-light);
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.15);
 }
 
 .category-icon {
@@ -87,6 +91,7 @@
     border-radius: var(--radius-lg);
     padding: var(--space-6);
     margin-bottom: var(--space-6);
+    box-shadow: var(--shadow-card);
 }
 
 .results-section h2 {
@@ -119,7 +124,8 @@
 
 .best-card-item.top-pick {
     background: var(--accent-light);
-    border: 1px solid var(--accent);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.1);
 }
 
 .rank-badge {
@@ -172,6 +178,7 @@
     font-size: 1.125rem;
     font-weight: 700;
     color: var(--success);
+    text-shadow: 0 0 8px rgba(34, 197, 94, 0.25);
 }
 
 .reward-type {

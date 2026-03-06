@@ -1,58 +1,61 @@
 /*
  * Smart Credit Card Advisor - India
- * Dark Theme — Trustworthy Blue & White
+ * Dark Fintech Dashboard Theme
  */
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
 /* ============ CSS VARIABLES ============ */
 :root {
-  --white: #0b0f1a;
-  --black: #f0f2f5;
+  --white: #0F172A;
+  --black: #F1F5F9;
 
-  /* Accent — trustworthy blue */
-  --accent: #3b82f6;
-  --accent-hover: #2563eb;
+  /* Primary — trustworthy blue */
+  --accent: #3B82F6;
+  --accent-hover: #2563EB;
   --accent-light: rgba(59, 130, 246, 0.12);
-  --accent-muted: rgba(59, 130, 246, 0.08);
+  --accent-muted: rgba(59, 130, 246, 0.06);
+  --accent-glow: rgba(59, 130, 246, 0.2);
 
-  /* Backgrounds — deep dark */
-  --bg-main: #0b0f1a;
-  --bg-card: #111827;
-  --bg-elevated: #1e293b;
+  /* Backgrounds */
+  --bg-main: #0F172A;
+  --bg-card: #1E293B;
+  --bg-elevated: #273548;
   --bg: var(--bg-main);
-  --bg-tertiary: #111827;
+  --bg-tertiary: #1E293B;
+  --bg-input: #162033;
 
-  /* Text — clean white/gray */
-  --text-main: #f0f2f5;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  /* Text */
+  --text-main: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
   --text: var(--text-main);
   --text-primary: var(--text-main);
 
   /* Borders & Shadows */
-  --border: #1e293b;
-  --border-highlight: #334155;
+  --border: #334155;
+  --border-highlight: #475569;
   --border-hover: var(--border-highlight);
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.35);
-  --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.35), 0 3px 6px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.25);
 
   /* Functional Colors */
-  --success: #22c55e;
+  --success: #22C55E;
   --success-bg: rgba(34, 197, 94, 0.1);
-  --warning: #f59e0b;
+  --warning: #F59E0B;
   --warning-bg: rgba(245, 158, 11, 0.1);
-  --danger: #ef4444;
-  --danger-bg: rgba(239, 68, 68, 0.1);
-  --green: #22c55e;
-  --red: #ef4444;
-  --yellow: #f59e0b;
-  --blue: #3b82f6;
+  --danger: #EF4444;
+  --danger-bg: rgba(239, 68, 68, 0.08);
+  --green: #22C55E;
+  --red: #EF4444;
+  --yellow: #F59E0B;
+  --blue: #3B82F6;
   --blue-light: rgba(59, 130, 246, 0.1);
   --yellow-light: rgba(245, 158, 11, 0.1);
-  --red-light: rgba(239, 68, 68, 0.1);
+  --red-light: rgba(239, 68, 68, 0.08);
   --success-light: rgba(34, 197, 94, 0.1);
 
   /* Spacing */
@@ -75,15 +78,15 @@
 
   /* Radius */
   --radius-sm: 6px;
-  --radius: 8px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius: 10px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --radius-full: 9999px;
 
   /* Transitions */
-  --transition: all 0.15s ease;
-  --transition-base: all 0.15s ease;
+  --transition: all 0.2s ease;
+  --transition-base: all 0.2s ease;
 
   /* Typography */
   --text-xs: 0.75rem;
@@ -98,11 +101,11 @@
   --primary-50: var(--accent-light);
   --primary-500: var(--accent);
   --primary-600: var(--accent-hover);
-  --accent-400: #60a5fa;
-  --accent-800: #1e40af;
-  --primary-400: #60a5fa;
-  --shadow-glow: none;
-  --shadow-primary: none;
+  --accent-400: #60A5FA;
+  --accent-800: #1E40AF;
+  --primary-400: #60A5FA;
+  --shadow-glow: 0 0 20px var(--accent-glow);
+  --shadow-primary: 0 4px 14px rgba(59, 130, 246, 0.25);
 }
 
 /* ============ RESET ============ */
@@ -169,26 +172,31 @@ p {
   gap: var(--space-2);
   font-family: var(--font-body);
   font-size: 0.875rem;
-  font-weight: 500;
-  padding: 0.625rem 1.25rem;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
   border-radius: var(--radius);
   border: none;
   cursor: pointer;
   transition: var(--transition);
   text-decoration: none;
+  letter-spacing: 0.01em;
 }
 
 .btn-primary {
   background: var(--accent);
   color: #fff;
+  box-shadow: var(--shadow-primary);
 }
 
 .btn-primary:hover {
   background: var(--accent-hover);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+  transform: translateY(-1px);
 }
 
 .btn-primary:active {
-  transform: scale(0.98);
+  transform: translateY(0) scale(0.98);
+  box-shadow: var(--shadow-primary);
 }
 
 .btn-secondary {
@@ -200,16 +208,18 @@ p {
 .btn-secondary:hover {
   background: var(--bg-elevated);
   border-color: var(--border-highlight);
+  transform: translateY(-1px);
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
+  transform: none !important;
 }
 
 .btn-lg {
-  padding: 0.75rem 1.75rem;
-  font-size: 0.9375rem;
+  padding: 0.85rem 2rem;
+  font-size: 1rem;
 }
 
 /* ============ CARDS ============ */
@@ -218,6 +228,7 @@ p {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
+  box-shadow: var(--shadow-card);
 }
 
 /* ============ INPUTS ============ */
@@ -226,11 +237,11 @@ select,
 textarea {
   font-family: var(--font-body);
   font-size: 0.9375rem;
-  background: var(--bg-card);
+  background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   color: var(--text-main);
-  padding: 0.625rem var(--space-4);
+  padding: 0.7rem var(--space-4);
   width: 100%;
   transition: var(--transition);
 }
@@ -239,7 +250,7 @@ input:focus,
 select:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-muted);
+  box-shadow: 0 0 0 3px var(--accent-muted), var(--shadow-glow);
 }
 
 input::placeholder {
@@ -303,7 +314,7 @@ label {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(8px);
   }
 
   to {
@@ -312,8 +323,32 @@ label {
   }
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
 .animate-in {
-  animation: fadeIn 0.3s ease forwards;
+  animation: fadeIn 0.35s ease forwards;
 }
 
 @keyframes spin {
@@ -328,14 +363,14 @@ label {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg-main);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-highlight);
+  background: var(--border);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: var(--border-highlight);
 }
