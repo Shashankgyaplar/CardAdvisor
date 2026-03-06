@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import ThemeToggle from './ThemeToggle';
 import './Header.css';
 
 const Header = () => {
@@ -33,7 +32,6 @@ const Header = () => {
                     >
                         Quick Pick
                     </Link>
-                    <ThemeToggle />
                     <Link to="/wizard" className="btn btn-primary">
                         Get Started
                     </Link>
