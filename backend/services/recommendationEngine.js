@@ -61,11 +61,22 @@ class RecommendationEngine {
      * 
      * @param {Object} card - CreditCard document
      * @param {Object} userInput - UserInput document
+     * @param {number} unfulfilledLoungeVisits - The number of lounge visits the user still needs after existing cards
      * @returns {Object} Calculation result with breakdown
      */
-    calculateNetBenefit(card, userInput) {
-        const spending = userInput.spending;
+    calculateNetBenefit(card, userInput, unfulfilledLoungeVisits = null) {
+        let spending = { ...userInput.spending };
         const yearly = 12; // Months in a year
+
+        // CAP SPENDING TO MONTHLY INCOME IF PROVIDED
+        // This prevents the system from inflating rewards based on unrealistic or erroneous spending inputs
+        const totalMonthlySpend = Object.values(spending).reduce((sum, val) => sum + val, 0);
+        if (userInput.monthlyIncome !== null && userInput.monthlyIncome !== undefined && userInput.monthlyIncome > 0 && totalMonthlySpend > userInput.monthlyIncome) {
+            const scaleFactor = userInput.monthlyIncome / totalMonthlySpend;
+            Object.keys(spending).forEach(key => {
+                spending[key] = spending[key] * scaleFactor;
+            });
+        }
 
         // Initialize breakdown
         const breakdown = {
@@ -76,7 +87,8 @@ class RecommendationEngine {
             offlineRewards: 0,
             loungeValue: 0,
             totalRewards: 0,
-            annualFeeCost: card.annualFee
+            annualFeeCost: card.annualFee,
+            feeWaived: false
         };
 
         // Calculate rewards based on card type
@@ -89,7 +101,13 @@ class RecommendationEngine {
             breakdown.offlineRewards = (spending.offline * (card.rewards.offline / 100) * yearly);
         } else {
             // Points: rewards are points per ₹100, need to convert to rupee value
-            const pointValue = card.pointValue || 0.25;
+            // PENALIZE POINTS VALUE IF USER PREFERS CASHBACK
+            // Users who want cashback usually redeem points for statement credit at significantly lower rates
+            // than travel redemptions (e.g., 0.25 for flights, 0.10 for cash). We apply a 60% penalty.
+            let pointValue = card.pointValue || 0.25;
+            if (userInput.rewardPreference === 'cashback') {
+                pointValue = pointValue * 0.4;
+            }
 
             breakdown.foodRewards = (spending.food / 100 * card.rewards.food * pointValue * yearly);
             breakdown.fuelRewards = (spending.fuel / 100 * card.rewards.fuel * pointValue * yearly);
@@ -106,10 +124,22 @@ class RecommendationEngine {
             breakdown.onlineRewards +
             breakdown.offlineRewards;
 
+        // FEE WAIVER LOGIC
+        // If the user's total yearly spending hits the fee waiver threshold, the fee is 0
+        const cappedTotalYearlySpend = Object.values(spending).reduce((sum, val) => sum + val, 0) * yearly;
+        if (card.feeWaiverSpend && cappedTotalYearlySpend >= card.feeWaiverSpend) {
+            breakdown.annualFeeCost = 0;
+            breakdown.feeWaived = true;
+        }
+
         // Calculate lounge value
-        const estimatedVisits = CONFIG.LOUNGE_USAGE_MAP[userInput.loungeUsage] || 0;
+        // Use the unfulfilled demand if passed, otherwise default to full estimated usage
+        const estimatedVisits = unfulfilledLoungeVisits !== null
+            ? unfulfilledLoungeVisits
+            : (CONFIG.LOUNGE_USAGE_MAP[userInput.loungeUsage] || 0);
+
         const totalLoungeAccess = (card.loungeAccess?.domestic || 0) + (card.loungeAccess?.international || 0);
-        const usableVisits = Math.min(estimatedVisits, totalLoungeAccess);
+        const usableVisits = Math.max(0, Math.min(estimatedVisits, totalLoungeAccess));
 
         // Use card's lounge value or default
         const loungeValuePerVisit = card.loungeValuePerVisit || CONFIG.LOUNGE_VALUE_DOMESTIC;
@@ -165,6 +195,12 @@ class RecommendationEngine {
             }
         }
 
+        // Bonus for zero-income users matching with zero-income required cards
+        if (userInput.monthlyIncome === 0 && card.eligibility?.minMonthlyIncome === 0) {
+            // Add a massive flat bonus so these cards rank at the top regardless of spending net benefit
+            score += 10000;
+        }
+
         return Math.round(score * 100) / 100;
     }
 
@@ -179,6 +215,11 @@ class RecommendationEngine {
     generateReasons(card, userInput, breakdown) {
         const reasons = [];
         const topCategory = this.getTopSpendingCategory(userInput.spending);
+
+        // Reason for zero income
+        if (userInput.monthlyIncome === 0 && card.eligibility?.minMonthlyIncome === 0) {
+            reasons.push('Great entry-level card that does not require income proof');
+        }
 
         // Reason based on top spending category
         if (topCategory) {
@@ -216,6 +257,8 @@ class RecommendationEngine {
         // Reason based on annual fee
         if (card.annualFee === 0) {
             reasons.push('No annual fee - pure savings');
+        } else if (breakdown.feeWaived) {
+            reasons.push(`Annual fee of ₹${card.annualFee.toLocaleString('en-IN')} waived based on your projected yearly spending of ₹${Math.round(Object.values(userInput.spending).reduce((s, v) => s + v, 0) * 12).toLocaleString('en-IN')}!`);
         } else if (card.feeWaiverSpend) {
             reasons.push(`Annual fee of ₹${card.annualFee.toLocaleString('en-IN')} can be waived by spending ₹${card.feeWaiverSpend.toLocaleString('en-IN')}/year`);
         }
@@ -254,9 +297,10 @@ class RecommendationEngine {
      * 
      * @param {Object} userInput - UserInput document
      * @param {CreditCard[]} cards - Array of credit cards to evaluate
+     * @param {number} unfulfilledLoungeVisits - Remaining lounge visits needed after existing cards
      * @returns {Object[]} Sorted array of recommendations
      */
-    async generateRecommendations(userInput, cards = null) {
+    async generateRecommendations(userInput, cards = null, unfulfilledLoungeVisits = null) {
         // Fetch all active cards if not provided
         if (!cards) {
             cards = await CreditCard.find({ isActive: true });
@@ -264,7 +308,7 @@ class RecommendationEngine {
 
         // Calculate benefits for each card
         const results = cards.map(card => {
-            const { netYearlyBenefit, breakdown } = this.calculateNetBenefit(card, userInput);
+            const { netYearlyBenefit, breakdown } = this.calculateNetBenefit(card, userInput, unfulfilledLoungeVisits);
             const matchScore = this.calculateMatchScore(card, userInput, netYearlyBenefit);
             const reasons = this.generateReasons(card, userInput, breakdown);
 

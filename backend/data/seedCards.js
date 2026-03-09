@@ -127,6 +127,41 @@ const creditCards = [
 
     // ============ SBI CARDS ============
     {
+        name: 'SBI Student Plus Advantage',
+        bank: 'SBI Card',
+        cardNetwork: 'Visa',
+        annualFee: 0,
+        joiningFee: 0,
+        feeWaiverSpend: null,
+        rewardType: 'points',
+        rewards: {
+            food: 1,
+            fuel: 2.5,
+            travel: 1,
+            online: 1,
+            offline: 1,
+            default: 1
+        },
+        pointValue: 0.25,
+        loungeAccess: {
+            domestic: 0,
+            international: 0
+        },
+        loungeValuePerVisit: 0,
+        eligibility: {
+            minMonthlyIncome: 0,
+            minCreditScore: 300 // Accessible to absolute beginners
+        },
+        benefits: [
+            'Lifetime free card for students',
+            '1X Reward Points on most spends',
+            '2.5% Value back on grocery and fuel',
+            'Education loan integration'
+        ],
+        bestFor: 'College students looking for their first credit card',
+        isActive: true
+    },
+    {
         name: 'SBI SimplyCLICK',
         bank: 'SBI Card',
         cardNetwork: 'Visa',
@@ -577,6 +612,44 @@ const creditCards = [
             'Instant approval for 811 customers'
         ],
         bestFor: 'Entry-level cardholders seeking basic rewards with no fees',
+        isActive: true
+    },
+
+    // ============ IDFC FIRST BANK ============
+    {
+        name: 'IDFC FIRST WOW!',
+        bank: 'IDFC FIRST Bank',
+        cardNetwork: 'Visa',
+        annualFee: 0,
+        joiningFee: 0,
+        feeWaiverSpend: null,
+        rewardType: 'points',
+        rewards: {
+            food: 4,
+            fuel: 0, // No rewards on fuel typically
+            travel: 4,
+            online: 4,
+            offline: 4,
+            default: 4
+        },
+        pointValue: 0.25,
+        loungeAccess: {
+            domestic: 0,
+            international: 0
+        },
+        loungeValuePerVisit: 0,
+        eligibility: {
+            minMonthlyIncome: 0, // Secured card based on FD
+            minCreditScore: 300 // No credit history required
+        },
+        benefits: [
+            'Lifetime free secured credit card',
+            'No income proof or credit history required',
+            'Earn 4X Reward Points on all spends',
+            'Zero forex markup fee',
+            'Helps build credit score'
+        ],
+        bestFor: 'Students, homemakers, or anyone without active income source',
         isActive: true
     }
 ];

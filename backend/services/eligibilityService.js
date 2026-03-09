@@ -49,7 +49,7 @@ class EligibilityService {
         };
 
         // If user didn't provide financial info, return unknown
-        if (!userInput.monthlyIncome && !userInput.creditScore) {
+        if ((userInput.monthlyIncome === undefined || userInput.monthlyIncome === null) && !userInput.creditScore) {
             result.reasons.push('Financial information not provided. Add income and credit score for accurate approval probability.');
             return result;
         }
@@ -60,7 +60,7 @@ class EligibilityService {
 
         // Check income requirement
         let incomeCheck = { passed: true, reason: '' };
-        if (userIncome && card.eligibility?.minMonthlyIncome) {
+        if (userIncome !== undefined && userIncome !== null && card.eligibility?.minMonthlyIncome !== undefined) {
             if (userIncome >= card.eligibility.minMonthlyIncome) {
                 incomeCheck = {
                     passed: true,
@@ -75,7 +75,7 @@ class EligibilityService {
                 };
             }
             result.reasons.push(incomeCheck.reason);
-        } else if (!userIncome) {
+        } else if (userIncome === undefined || userIncome === null) {
             incomeCheck = { passed: null, reason: 'Income not provided' };
         }
 

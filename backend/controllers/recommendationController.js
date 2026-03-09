@@ -42,6 +42,15 @@ const generateRecommendations = async (req, res) => {
             });
         }
 
+        // Validate negative spending
+        const hasNegativeSpending = Object.values(spending).some(val => val < 0);
+        if (hasNegativeSpending) {
+            return res.status(400).json({
+                success: false,
+                error: 'Spending values cannot be negative'
+            });
+        }
+
         // Create user input document
         const userInput = new UserInput({
             spending: {
@@ -67,8 +76,32 @@ const generateRecommendations = async (req, res) => {
         // Fetch all active cards
         const allCards = await CreditCard.find({ isActive: true });
 
+        // Calculate unfulfilled lounge visits and filter existing cards
+        let newCardsToEvaluate = allCards;
+        let unfulfilledLoungeVisits = null; // null means 'use default from config'
+
+        if (existingCardIds && existingCardIds.length > 0) {
+            // Filter out existing cards from recommendations
+            newCardsToEvaluate = allCards.filter(card => !existingCardIds.includes(card._id.toString()));
+
+            // Find existing cards to calculate fulfilled lounge needs
+            const existingCards = await CreditCard.find({ _id: { $in: existingCardIds } });
+
+            // Calculate total existing lounge access
+            const existingLoungeVisits = existingCards.reduce((total, card) => {
+                return total + (card.loungeAccess?.domestic || 0) + (card.loungeAccess?.international || 0);
+            }, 0);
+
+            // Get total desired lounge visits based on user preference
+            const recommendationEngineConfig = require('../services/recommendationEngine').CONFIG;
+            const desiredVisits = recommendationEngineConfig.LOUNGE_USAGE_MAP[loungeUsage || 'never'] || 0;
+
+            // Calculate remaining demand (minimum 0)
+            unfulfilledLoungeVisits = Math.max(0, desiredVisits - existingLoungeVisits);
+        }
+
         // Generate recommendations
-        const recommendations = await recommendationEngine.generateRecommendations(userInput, allCards);
+        const recommendations = await recommendationEngine.generateRecommendations(userInput, newCardsToEvaluate, unfulfilledLoungeVisits);
 
         // Add warnings and eligibility to each recommendation
         const enrichedRecommendations = recommendations.map(rec => {

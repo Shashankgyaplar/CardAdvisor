@@ -39,6 +39,9 @@ class FeeDetectionService {
         // Check for spending pattern mismatch
         warnings.push(...this.checkSpendingMismatch(card, userInput));
 
+        // Check for unrealistic spending vs income
+        warnings.push(...this.checkSpendingExceedsIncome(userInput));
+
         // Check for fee tolerance violation
         warnings.push(...this.checkFeeTolerance(card, userInput));
 
@@ -235,6 +238,31 @@ class FeeDetectionService {
     checkBetterAlternatives(card, userInput) {
         // This will be implemented when we process existing cards
         return [];
+    }
+
+    /**
+     * Check if stated spending exceeds monthly income
+     * 
+     * @param {Object} userInput - UserInput document
+     * @returns {Object[]} Warnings array
+     */
+    checkSpendingExceedsIncome(userInput) {
+        const warnings = [];
+        if (userInput.monthlyIncome === null || userInput.monthlyIncome === undefined || userInput.monthlyIncome <= 0) {
+            return warnings;
+        }
+
+        const totalSpend = Object.values(userInput.spending).reduce((sum, val) => sum + val, 0);
+
+        if (totalSpend > userInput.monthlyIncome) {
+            warnings.push({
+                type: 'spending_exceeds_income',
+                severity: SEVERITY.CRITICAL,
+                message: `⚠️ Your specified monthly spending (₹${totalSpend.toLocaleString('en-IN')}) exceeds your stated monthly income (₹${userInput.monthlyIncome.toLocaleString('en-IN')}). We have automatically capped your reward projections to match your income to prevent unrealistic estimates. Please ensure you are not accumulating credit card debt.`
+            });
+        }
+
+        return warnings;
     }
 
     /**

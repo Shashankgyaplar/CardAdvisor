@@ -54,7 +54,7 @@ const WizardPage = () => {
                 loungeUsage: data.loungeUsage,
                 rewardPreference: data.rewardPreference,
                 annualFeeTolerance: data.annualFeeTolerance,
-                monthlyIncome: parseInt(data.monthlyIncome) || null,
+                monthlyIncome: data.monthlyIncome === '' ? null : parseInt(data.monthlyIncome),
                 creditScore: data.creditScore,
                 existingCardIds: data.existingCardIds,
             });
